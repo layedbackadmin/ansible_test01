@@ -25,6 +25,15 @@
       state: latest
     when: ansible_distribution == "Ubuntu"
 
+  - name: copy sshd_config file
+    tags: always
+    copy:
+      src: default_sshd_config
+      dest: /etc/ssh/sshd_config
+      owner: root
+      group: root
+      mode: 0644
+
 
 - hosts: web_servers
   become: true
