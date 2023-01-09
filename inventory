@@ -5,3 +5,7 @@
 192.168.1.105
 
 [file_servers]
+
+
+[workstations]
+192.168.1.196
