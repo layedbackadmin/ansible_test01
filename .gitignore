@@ -1,0 +1,5 @@
+# igrnore ALL .log files
+*.log
+
+# ignore ALL files in ANY directory named archive
+archive/
