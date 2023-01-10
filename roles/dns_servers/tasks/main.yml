@@ -1,0 +1,9 @@
+- name: install bind for Ubuntu servers
+  tags: dns,bind,ubuntu
+  apt:
+    name:
+      - bind9
+      - bind9utils
+      - bind9-doc
+    state: latest
+  when: ansible_distribution == "Ubuntu"
