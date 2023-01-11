@@ -19,45 +19,17 @@
     - { dest: '/var/log/named', mode: '0750' }
   notify: restart_dns
 
-- name: copy named.conf file
+- name: copy dns config files
   tags: dns,bind,ubuntu
   copy:
-    src: forwarder_named.conf
-    dest: /etc/bind/named.conf
+    src: "{{ item }}"
+    dest: /etc/bind/
     owner: root
     group: bind
     mode: 0644
-  notify: restart_dns
-
-- name: copy named.conf.local file
-  tags: dns,bind,ubuntu
-  copy:
-    src: forwarder_named.conf.local
-    dest: /etc/bind/named.conf.local
-    owner: root
-    group: bind
-    mode: 0644
-  notify: restart_dns
-
-- name: copy named.conf.options file
-  tags: dns,bind,ubuntu
-  copy:
-    src: forwarder_named.conf.options
-    dest: /etc/bind/named.conf.options
-    owner: root
-    group: bind
-    mode: 0644
-  notify: restart_dns
-
-- name: copy named.conf.internal-zones file
-  tags: dns,bind,ubuntu
-  copy:
-    src: forwarder_named.conf.internal-zones
-    dest: /etc/bind/named.conf.internal-zones
-    owner: root
-    group: bind
-    mode: 0644
-  notify: restart_dns
+  with_fileglob:
+    - files/dns_forwarder/*
+  notify: restart_bind
 
 - name: add ufw bind rules (Ubuntu)
   tags: dns,bind,ubuntu
