@@ -2,4 +2,5 @@ dns_package: bind9
 dns_utils_package: bind9-utils
 dns_docs_package: bind9-doc
 dns_service: named.service
-
+ssh_users: "dev ansible"
+ssh_template_file: sshd_config_ubuntu.j2

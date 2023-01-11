@@ -1,2 +1,4 @@
 database_package_name: mariadb-server
 apache_service: mariadb-server
+ssh_users: "dev ansible"
+ssh_template_file: sshd_config_ubuntu.j2
