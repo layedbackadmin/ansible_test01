@@ -1,0 +1,2 @@
+database_package_name: mariadb-server
+apache_service: mariadb-server

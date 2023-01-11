@@ -1,0 +1,14 @@
+// Custom zone forwarders
+
+zone "int-eeye.com" {
+	type forward;
+	forward only;
+	forwarders { 10.220.5.10; 10.220.5.11; };
+};
+
+zone "cisco.com" {
+	type forward;
+	forward only;
+	forwarders { 192.168.1.99; 192.168.1.98; };
+};
+

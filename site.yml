@@ -41,3 +41,9 @@
   become: true
   roles:
     - file_servers
+
+
+- hosts: dns_servers
+  become: true
+  roles:
+    - dns_servers

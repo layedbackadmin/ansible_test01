@@ -1,9 +1,69 @@
-- name: install bind for Ubuntu servers
+- name: install dns server
   tags: dns,bind,ubuntu
-  apt:
+  package:
     name:
-      - bind9
-      - bind9utils
-      - bind9-doc
+      - "{{ dns_package }}"
+      - "{{ dns_utils_package }}"
+      - "{{ dns_docs_package }}"
     state: latest
+
+- name: create log directory
+  tags: dns,bind,ubuntu
+  file:
+    path: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+    state: directory
+    owner: bind
+    group: bind
+  with_items:
+    - { dest: '/var/log/named', mode: '0750' }
+  notify: restart_dns
+
+- name: copy named.conf file
+  tags: dns,bind,ubuntu
+  copy:
+    src: forwarder_named.conf
+    dest: /etc/bind/named.conf
+    owner: root
+    group: bind
+    mode: 0644
+  notify: restart_dns
+
+- name: copy named.conf.local file
+  tags: dns,bind,ubuntu
+  copy:
+    src: forwarder_named.conf.local
+    dest: /etc/bind/named.conf.local
+    owner: root
+    group: bind
+    mode: 0644
+  notify: restart_dns
+
+- name: copy named.conf.options file
+  tags: dns,bind,ubuntu
+  copy:
+    src: forwarder_named.conf.options
+    dest: /etc/bind/named.conf.options
+    owner: root
+    group: bind
+    mode: 0644
+  notify: restart_dns
+
+- name: copy named.conf.internal-zones file
+  tags: dns,bind,ubuntu
+  copy:
+    src: forwarder_named.conf.internal-zones
+    dest: /etc/bind/named.conf.internal-zones
+    owner: root
+    group: bind
+    mode: 0644
+  notify: restart_dns
+
+- name: add ufw bind rules (Ubuntu)
+  tags: dns,bind,ubuntu
+  ufw:
+    direction: "in"
+    from_ip: "192.168.1.0/24"
+    name: "bind9"
+    rule: "allow"
   when: ansible_distribution == "Ubuntu"
