@@ -1,0 +1,17 @@
+- name: install rsyslog
+  tags: syslog,rsyslog,ubuntu
+  package:
+    name:
+      - "{{ syslog_package }}"
+    state: latest
+  notify: restart_rsyslog
+
+- name: add ufw rsyslog rules (Ubuntu)
+  tags: syslog,rsyslog,ubuntu
+  ufw:
+    direction: "in"
+    from_ip: "192.168.1.0/24"
+    proto: "udp"
+    to_port: "514"
+    rule: "allow"
+  when: ansible_distribution == "Ubuntu"

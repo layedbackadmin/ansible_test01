@@ -1,0 +1,4 @@
+ssh_users: "dev ansible"
+ssh_template_file: sshd_config_ubuntu.j2
+syslog_service: rsyslog
+syslog_package: rsyslog

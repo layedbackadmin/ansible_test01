@@ -28,7 +28,7 @@ options {
         allow-query { corpnets; };
 	allow-recursion { corpnets; };
 
-	blackhole { bogusnets; };
+	// blackhole { bogusnets; };
 
 	// this ensures that any reverse map for private IPs
 	// not defined in a zone file will *note* be passed to the public network

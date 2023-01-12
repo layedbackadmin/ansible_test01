@@ -47,3 +47,9 @@
   become: true
   roles:
     - dns_servers
+
+
+- hosts: log_servers
+  become: true
+  roles:
+    - log_servers
